@@ -11,7 +11,6 @@ Este projeto é uma API desenvolvida em ASP.NET para gerenciar feedbacks de proj
 - [Endpoints da API](#endpoints-da-api)
 - [CRUD Operações](#crud-operações)
 - [Contribuição](#contribuição)
-- [Licença](#licença)
 
 ## Tecnologias Utilizadas
 
@@ -164,10 +163,6 @@ Esta API suporta operações CRUD completas para as entidades `Colaborador` e `P
     </td>
   </tr>
 </table>
-
-## Licença
-
-Este projeto está licenciado sob a Licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 ```
 
 Certifique-se de substituir "https://github.com/seu-usuario/seu-repositorio.git" pelo URL real do seu repositório. Este README cobre as informações principais, como configuração, execução e utilização da API. Se precisar adicionar mais detalhes ou modificações, sinta-se à vontade para personalizar o conteúdo.
