@@ -163,6 +163,3 @@ Esta API suporta operações CRUD completas para as entidades `Colaborador` e `P
     </td>
   </tr>
 </table>
-```
-
-Certifique-se de substituir "https://github.com/seu-usuario/seu-repositorio.git" pelo URL real do seu repositório. Este README cobre as informações principais, como configuração, execução e utilização da API. Se precisar adicionar mais detalhes ou modificações, sinta-se à vontade para personalizar o conteúdo.
