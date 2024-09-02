@@ -94,7 +94,7 @@ O projeto está organizado da seguinte forma:
 
 - **GET** `/api/Colaborador/ListarColaboradores` - Obtém a lista de todos os colaboradores.
 - **GET** `/api/colaborador/BuscarColaboradorPorId/{idColaborador}` - Obtém um colaborador específico pelo ID.
-- - **GET** `/api/colaborador/BuscarColaboradorPorIdProjeto/{idProjeto}` - Obtém um colaborador específico pelo ID do projeto.
+- **GET** `/api/colaborador/BuscarColaboradorPorIdProjeto/{idProjeto}` - Obtém um colaborador específico pelo ID do projeto.
 - **POST** `/api/Colaborador/CriarColaborador` - Adiciona um novo colaborador.
 - **PUT** `/api/Colaborador/EditarColaborador` - Atualiza as informações de um colaborador.
 - **DELETE** `/api/Colaborador/ExcluirColaborador` - Remove um colaborador.
@@ -103,7 +103,7 @@ O projeto está organizado da seguinte forma:
 
 - **GET** `/api/Projeto/ListarProjetos` - Obtém a lista de todos os projetos.
 - **GET** `/api/Projeto/BuscarProjetoId/{idProjeto}` - Obtém um projeto específico pelo ID.
-- - **GET** `/api/Projeto/BuscarProjetoPorIdColaborador/{idColaborador}` - Obtém um projeto específico pelo ID do colaborador.
+- **GET** `/api/Projeto/BuscarProjetoPorIdColaborador/{idColaborador}` - Obtém um projeto específico pelo ID do colaborador.
 - **POST** `/api/Projeto/CriarProjeto` - Adiciona um novo projeto.
 - **PUT** `/api/Projeto/EditarProjeto` - Atualiza as informações de um projeto.
 - **DELETE** `/api/Projeto/ExcluirProjeto` - Remove um projeto.
