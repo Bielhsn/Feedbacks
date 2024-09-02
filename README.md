@@ -120,7 +120,50 @@ Esta API suporta operações CRUD completas para as entidades `Colaborador` e `P
 
 ## Contribuição
 
-
+<table>
+  <tr>
+        <td align="center">
+      <a href="https://github.com/Bielhsn" title="Perfil Gabriel Henrique Souza">
+        <img src="https://avatars.githubusercontent.com/u/113404490?v=4" width="100px;" alt="Gabriel Henrique Souza"/><br>
+        <sub>
+          <b>Gabriel Souza</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/rafak7" title="Perfil Rafael Lino">
+        <img src="https://avatars.githubusercontent.com/u/126628341?v=4" width="100px;" alt="Rafael Lino"/><br>
+        <sub>
+          <b>Rafael Lino</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/bruno1098" title="Perfil Bruno Antunes">
+        <img src="https://avatars.githubusercontent.com/u/115303980?v=4" width="100px;" alt="Bruno Antunes"/><br>
+        <sub>
+          <b>Bruno Antunes</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/B1el-Henr1" title="Perfil Gabriel Henrique Figueiredo">
+        <img src="https://avatars.githubusercontent.com/u/160192324?v=4" width="100px;" alt="Gabriel Henrique Figueiredo"/><br>
+        <sub>
+          <b>Gabriel Figueiredo</b>
+        </sub>
+      </a>
+    </td>
+     <td align="center">
+      <a href="https://github.com/Pedro-Ferrari" title="Perfil Pedro Henrique">
+        <img src="https://avatars.githubusercontent.com/u/126732959?v=4" width="100px;" alt="Pedro Henrique"/><br>
+        <sub>
+          <b>Pedro Ferrari</b>
+        </sub>
+      </a>
+    </td>
+  </tr>
+</table>
 
 ## Licença
 
