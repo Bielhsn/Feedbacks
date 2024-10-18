@@ -1,4 +1,6 @@
-﻿namespace Feedbacks.Models
+﻿using System;
+
+namespace Feedbacks.Models
 {
     public class ProjetoModel
     {
@@ -7,6 +9,6 @@
         public string Descricao { get; set; }
         public DateTime Data_Inicio { get; set; }
         public DateTime Data_Final { get; set; }
-        public ColaboradorModel Colaborador { get; set; }
+        public ColaboradorModel Colaborador { get; set; } // Certifique-se de que ColaboradorModel esteja acessível
     }
 }

@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Feedbacks.Services.Projeto
+namespace Feedbacks.Repositories.Projeto
 {
-    public interface IProjetoInterface
+    public interface IProjetoRepository
     {
         Task<ProjetoModel> Criar(ProjetoModel projeto);
         Task<ProjetoModel> BuscarPorId(int id);
         Task<List<ProjetoModel>> ListarProjetos();
         Task<ProjetoModel> Editar(ProjetoModel projeto);
         Task<bool> Excluir(int id);
-        Task<ProjetoModel> BuscarProjetoPorId(int id); // Adicionado
+        Task<List<ProjetoModel>> BuscarPorIdColaborador(int colaboradorId); // Método para buscar por ID do colaborador
     }
 }
