@@ -8,58 +8,29 @@ using Feedbacks.Services.Projeto;
 
 namespace Feedbacks.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class ProjetoController : ControllerBase
     {
-        private readonly IProjetoInterface _ProjetoInterface;
-        public ProjetoController(IProjetoInterface ProjetoInterface)
+        private readonly IProjetoInterface _projetoService;
+
+        public ProjetoController(IProjetoInterface projetoService)
         {
-            _ProjetoInterface = ProjetoInterface;
+            _projetoService = projetoService;
         }
 
-
-        [HttpGet("ListarProjetos")]
-        public async Task<ActionResult<ResponseModel<List<ProjetoModel>>>> ListarProjetos()
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProjeto(int id)
         {
-            var Projetos = await _ProjetoInterface.ListarProjetos();
-            return Ok(Projetos);
-        }
+            var projeto = await _projetoService.BuscarProjetoPorId(id);
 
-        [HttpGet("BuscarProjetoPorId/{idProjeto}")]
-        public async Task<ActionResult<ResponseModel<ProjetoModel>>> BuscarProjetoPorId(int idProjeto)
-        {
-            var Projeto = await _ProjetoInterface.BuscarProjetoPorId(idProjeto);
-            return Ok(Projeto);
-        }
+            if (projeto == null)
+            {
+                return NotFound("Projeto não encontrado");
+            }
 
-        [HttpGet("BuscarProjetoPorIdColaborador/{idColaborador}")]
-        public async Task<ActionResult<ResponseModel<ProjetoModel>>> BuscarProjetoPorIdColaborador(int idColaborador)
-        {
-            var Projeto = await _ProjetoInterface.BuscarProjetoPorIdColaborador(idColaborador);
-            return Ok(Projeto);
-        }
-
-        [HttpPost("CriarProjeto")]
-        public async Task<ActionResult<ResponseModel<List<ProjetoModel>>>> CriarProjeto(ProjetoCriacaoDto ProjetoCriacaoDto)
-        {
-            var Projetos = await _ProjetoInterface.CriarProjeto(ProjetoCriacaoDto);
-            return Ok(Projetos);
-        }
-
-
-        [HttpPut("EditarProjeto")]
-        public async Task<ActionResult<ResponseModel<List<ProjetoModel>>>> EditarProjeto(ProjetoEdicaoDto ProjetoEdicaoDto)
-        {
-            var Projetos = await _ProjetoInterface.EditarProjeto(ProjetoEdicaoDto);
-            return Ok(Projetos);
-        }
-
-        [HttpDelete("ExcluirProjeto")]
-        public async Task<ActionResult<ResponseModel<List<ColaboradorModel>>>> ExcluirProjeto(int idProjeto)
-        {
-            var Projetos = await _ProjetoInterface.ExcluirProjeto(idProjeto);
-            return Ok(Projetos);
+            return Ok(projeto);
         }
     }
+
 }

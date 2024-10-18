@@ -1,205 +1,86 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Feedbacks.Data;
+﻿using Feedbacks.Models;
 using Feedbacks.Dto.Colaborador;
-using Feedbacks.Models;
-using Feedbacks.Services.Colaborador;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Feedbacks.Repositories.Colaborador;
+
 namespace Feedbacks.Services.Colaborador
 {
     public class ColaboradorService : IColaboradorInterface
     {
-        private readonly AppDbContext _context;
-        public ColaboradorService(AppDbContext context)
+        private readonly IColaboradorRepository _colaboradorRepository;
+
+        public ColaboradorService(IColaboradorRepository colaboradorRepository)
         {
-            _context = context;
-        }
-
-        public async Task<ResponseModel<ColaboradorModel>> BuscarColaboradorPorId(int idColaborador)
-        {
-            ResponseModel<ColaboradorModel> resposta = new ResponseModel<ColaboradorModel>();
-            try
-            {
-
-                var Colaborador = await _context.TB_Colaboradores.FirstOrDefaultAsync(ColaboradorBanco => ColaboradorBanco.Id == idColaborador);
-
-                if (Colaborador == null)
-                {
-                    resposta.Mensagem = "Nenhum registro localizado!";
-                    return resposta;
-                }
-
-                resposta.Dados = Colaborador;
-                resposta.Mensagem = "Colaborador Localizado!";
-
-                return resposta;
-
-            }
-            catch (Exception ex)
-            {
-                resposta.Mensagem = ex.Message;
-                resposta.Status = false;
-                return resposta;
-            }
-        }
-
-        public async Task<ResponseModel<ColaboradorModel>> BuscarColaboradorPorIdProjeto(int idProjeto)
-        {
-            ResponseModel<ColaboradorModel> resposta = new ResponseModel<ColaboradorModel>();
-            try
-            {
-                var Projeto = await _context.TB_Projetos
-                    .Include(a => a.Colaborador)
-                    .FirstOrDefaultAsync(ProjetoBanco => ProjetoBanco.Id == idProjeto);
-
-                if (Projeto == null)
-                {
-                    resposta.Mensagem = "Nenhum registro localizado!";
-                    return resposta;
-                }
-
-                resposta.Dados = Projeto.Colaborador;
-                resposta.Mensagem = "Colaborador localizado!";
-                return resposta;
-
-
-
-            }
-            catch (Exception ex)
-            {
-                resposta.Mensagem = ex.Message;
-                resposta.Status = false;
-                return resposta;
-            }
-        }
-
-        public async Task<ResponseModel<List<ColaboradorModel>>> CriarColaborador(ColaboradorCriacaoDto ColaboradorCriacaoDto)
-        {
-            ResponseModel<List<ColaboradorModel>> resposta = new ResponseModel<List<ColaboradorModel>>();
-
-            try
-            {
-
-                var Colaborador = new ColaboradorModel()
-                {
-                    Nome = ColaboradorCriacaoDto.Nome,
-                    Funcao = ColaboradorCriacaoDto.Funcao,
-                    Prioridade = ColaboradorCriacaoDto.Prioridade,
-                    Data_Inicio = ColaboradorCriacaoDto.Data_Inicio,
-                    Data_Final = ColaboradorCriacaoDto.Data_Final,
-                };
-
-                _context.Add(Colaborador);
-                await _context.SaveChangesAsync();
-
-                resposta.Dados = await _context.TB_Colaboradores.ToListAsync();
-                resposta.Mensagem = "Colaborador criado com sucesso!";
-
-                return resposta;
-
-
-            }
-            catch (Exception ex)
-            {
-                resposta.Mensagem = ex.Message;
-                resposta.Status = false;
-                return resposta;
-            }
-
-
-        }
-
-        public async Task<ResponseModel<List<ColaboradorModel>>> EditarColaborador(ColaboradorEdicaoDto ColaboradorEdicaoDto)
-        {
-            ResponseModel<List<ColaboradorModel>> resposta = new ResponseModel<List<ColaboradorModel>>();
-            try
-            {
-
-                var Colaborador = await _context.TB_Colaboradores
-                    .FirstOrDefaultAsync(ColaboradorBanco => ColaboradorBanco.Id == ColaboradorEdicaoDto.Id);
-
-                if (Colaborador == null)
-                {
-                    resposta.Mensagem = "Nenhum Colaborador localizado!";
-                    return resposta;
-                }
-
-                Colaborador.Nome = ColaboradorEdicaoDto.Nome;
-                Colaborador.Funcao = ColaboradorEdicaoDto.Funcao;
-                Colaborador.Prioridade = ColaboradorEdicaoDto.Prioridade;
-                Colaborador.Data_Inicio = ColaboradorEdicaoDto.Data_Inicio;
-                Colaborador.Data_Final = ColaboradorEdicaoDto.Data_Final;
-
-                _context.Update(Colaborador);
-                await _context.SaveChangesAsync();
-
-                resposta.Dados = await _context.TB_Colaboradores.ToListAsync();
-                resposta.Mensagem = "Colaborador Editado com Sucesso!";
-
-                return resposta;
-
-            }
-            catch (Exception ex)
-            {
-                resposta.Mensagem = ex.Message;
-                resposta.Status = false;
-                return resposta;
-            }
-        }
-
-        public async Task<ResponseModel<List<ColaboradorModel>>> ExcluirColaborador(int idColaborador)
-        {
-            ResponseModel<List<ColaboradorModel>> resposta = new ResponseModel<List<ColaboradorModel>>();
-
-            try
-            {
-
-                var Colaborador = await _context.TB_Colaboradores
-                    .FirstOrDefaultAsync(ColaboradorBanco => ColaboradorBanco.Id == idColaborador);
-
-                if (Colaborador == null)
-                {
-                    resposta.Mensagem = "Nenhum Colaborador localizado!";
-                    return resposta;
-                }
-
-                _context.Remove(Colaborador);
-                await _context.SaveChangesAsync();
-
-                resposta.Dados = await _context.TB_Colaboradores.ToListAsync();
-                resposta.Mensagem = "Colaborador Removido com sucesso!";
-
-                return resposta;
-
-            }
-            catch (Exception ex)
-            {
-                resposta.Mensagem = ex.Message;
-                resposta.Status = false;
-                return resposta;
-            }
-
-
+            _colaboradorRepository = colaboradorRepository;
         }
 
         public async Task<ResponseModel<List<ColaboradorModel>>> ListarColaboradores()
         {
-            ResponseModel<List<ColaboradorModel>> resposta = new ResponseModel<List<ColaboradorModel>>();
-            try
+            var colaboradores = await _colaboradorRepository.ListarTodos(); // Método que você deve ter
+            return new ResponseModel<List<ColaboradorModel>>(colaboradores);
+        }
+
+        public async Task<ResponseModel<ColaboradorModel>> BuscarColaboradorPorId(int idColaborador)
+        {
+            if (idColaborador <= 0)
             {
-
-                var Colaboradores = await _context.TB_Colaboradores.ToListAsync();
-
-                resposta.Dados = Colaboradores;
-                resposta.Mensagem = "Todos os Colaboradores foram coletados!";
-
-                return resposta;
-
+                return new ResponseModel<ColaboradorModel>("ID inválido");
             }
-            catch (Exception ex)
+
+            var colaborador = await _colaboradorRepository.BuscarPorId(idColaborador);
+            if (colaborador == null)
             {
-                resposta.Mensagem = ex.Message;
-                resposta.Status = false;
-                return resposta;
+                return new ResponseModel<ColaboradorModel>("Colaborador não encontrado");
             }
+
+            return new ResponseModel<ColaboradorModel>(colaborador);
+        }
+
+        public async Task<ResponseModel<List<ColaboradorModel>>> BuscarColaboradoresPorIdProjeto(int idProjeto)
+        {
+            var colaboradores = await _colaboradorRepository.BuscarPorIdProjeto(idProjeto); // Implemente esse método no repositório
+            return new ResponseModel<List<ColaboradorModel>>(colaboradores);
+        }
+
+        public async Task<ResponseModel<ColaboradorModel>> CriarColaborador(ColaboradorCriacaoDto colaboradorCriacaoDto)
+        {
+            if (colaboradorCriacaoDto == null)
+            {
+                return new ResponseModel<ColaboradorModel>("Colaborador não pode ser nulo");
+            }
+
+            var colaborador = new ColaboradorModel(); // Mapeie os dados do DTO para o Model aqui
+            // Exemplo: colaborador.Nome = colaboradorCriacaoDto.Nome;
+
+            var colaboradorCriado = await _colaboradorRepository.Criar(colaborador);
+            return new ResponseModel<ColaboradorModel>(colaboradorCriado);
+        }
+
+        public async Task<ResponseModel<ColaboradorModel>> EditarColaborador(ColaboradorEdicaoDto colaboradorEdicaoDto)
+        {
+            if (colaboradorEdicaoDto == null)
+            {
+                return new ResponseModel<ColaboradorModel>("Colaborador não pode ser nulo");
+            }
+
+            // Implemente a lógica de edição aqui
+            var colaborador = new ColaboradorModel(); // Mapeie os dados do DTO para o Model aqui
+            // Exemplo: colaborador.Nome = colaboradorEdicaoDto.Nome;
+
+            var colaboradorEditado = await _colaboradorRepository.Editar(colaborador);
+            return new ResponseModel<ColaboradorModel>(colaboradorEditado);
+        }
+
+        public async Task<ResponseModel<bool>> ExcluirColaborador(int idColaborador)
+        {
+            if (idColaborador <= 0)
+            {
+                return new ResponseModel<bool>("ID inválido");
+            }
+
+            var resultado = await _colaboradorRepository.Excluir(idColaborador);
+            return new ResponseModel<bool>(resultado);
         }
     }
 }

@@ -1,10 +1,6 @@
-﻿using Feedbacks.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Feedbacks.Dto.Colaborador;
+﻿using Microsoft.AspNetCore.Mvc;
+using Feedbacks.Repositories.Colaborador;
 using Feedbacks.Models;
-using Feedbacks.Services.Colaborador;
-using Feedbacks.Services.Colaborador;
 
 namespace Feedbacks.Controllers
 {
@@ -12,56 +8,43 @@ namespace Feedbacks.Controllers
     [ApiController]
     public class ColaboradorController : ControllerBase
     {
+        private readonly IColaboradorRepository _colaboradorRepository;
 
-        private readonly IColaboradorInterface _ColaboradorInterface;
-        public ColaboradorController(IColaboradorInterface ColaboradorInterface)
+        public ColaboradorController(IColaboradorRepository colaboradorRepository)
         {
-            _ColaboradorInterface = ColaboradorInterface;
+            _colaboradorRepository = colaboradorRepository;
         }
 
-
-        [HttpGet("ListarColaboradores")]
-        public async Task<ActionResult<ResponseModel<List<ColaboradorModel>>>> ListarColaboradores()
+        [HttpGet]
+        public async Task<IActionResult> GetColaboradores()
         {
-            var Colaboradores = await _ColaboradorInterface.ListarColaboradores();
-            return Ok(Colaboradores);
+            var colaboradores = await _colaboradorRepository.ListarTodos();
+            return Ok(colaboradores);
         }
 
-        [HttpGet("BuscarColaboradorPorId/{idColaborador}")]
-        public async Task<ActionResult<ResponseModel<ColaboradorModel>>> BuscarColaboradorPorId(int idColaborador)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetColaboradorPorId(int id)
         {
-            var Colaborador = await _ColaboradorInterface.BuscarColaboradorPorId(idColaborador);
-            return Ok(Colaborador);
+            var colaborador = await _colaboradorRepository.BuscarPorId(id);
+            if (colaborador == null)
+            {
+                return NotFound();
+            }
+            return Ok(colaborador);
         }
 
-        [HttpGet("BuscarColaboradorPorIdProjeto/{idProjeto}")]
-        public async Task<ActionResult<ResponseModel<ColaboradorModel>>> BuscarColaboradorPorIdProjeto(int idProjeto)
+        [HttpPost]
+        public async Task<IActionResult> CriarColaborador([FromBody] ColaboradorModel colaborador)
         {
-            var Colaborador = await _ColaboradorInterface.BuscarColaboradorPorIdProjeto(idProjeto);
-            return Ok(Colaborador);
+            if (colaborador == null)
+            {
+                return BadRequest("Colaborador não pode ser nulo");
+            }
+
+            var novoColaborador = await _colaboradorRepository.Criar(colaborador);
+            return CreatedAtAction(nameof(GetColaboradorPorId), new { id = novoColaborador.Id }, novoColaborador);
         }
 
-        [HttpPost("CriarColaborador")]
-        public async Task<ActionResult<ResponseModel<List<ColaboradorModel>>>> CriarColaborador(ColaboradorCriacaoDto ColaboradorCriacaoDto)
-        {
-            var Colaboradores = await _ColaboradorInterface.CriarColaborador(ColaboradorCriacaoDto);
-            return Ok(Colaboradores);
-        }
-
-
-        [HttpPut("EditarColaborador")]
-        public async Task<ActionResult<ResponseModel<List<ColaboradorModel>>>> EditarColaborador(ColaboradorEdicaoDto ColaboradorEdicaoDto)
-        {
-            var Colaboradores = await _ColaboradorInterface.EditarColaborador(ColaboradorEdicaoDto);
-            return Ok(Colaboradores);
-        }
-
-        [HttpDelete("ExcluirColaborador")]
-        public async Task<ActionResult<ResponseModel<List<ColaboradorModel>>>> ExcluirColaborador(int idColaborador)
-        {
-            var Colaboradores = await _ColaboradorInterface.ExcluirColaborador(idColaborador);
-            return Ok(Colaboradores);
-        }
-
+        // Adicione outros métodos conforme necessário...
     }
 }
