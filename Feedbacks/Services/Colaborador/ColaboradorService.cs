@@ -17,7 +17,7 @@ namespace Feedbacks.Services.Colaborador
 
         public async Task<ResponseModel<List<ColaboradorModel>>> ListarColaboradores()
         {
-            var colaboradores = await _colaboradorRepository.ListarTodos(); // Método que você deve ter
+            var colaboradores = await _colaboradorRepository.ListarTodos();
             return new ResponseModel<List<ColaboradorModel>>(colaboradores);
         }
 
@@ -39,7 +39,7 @@ namespace Feedbacks.Services.Colaborador
 
         public async Task<ResponseModel<List<ColaboradorModel>>> BuscarColaboradoresPorIdProjeto(int idProjeto)
         {
-            var colaboradores = await _colaboradorRepository.BuscarPorIdProjeto(idProjeto); // Implemente esse método no repositório
+            var colaboradores = await _colaboradorRepository.BuscarPorIdProjeto(idProjeto);
             return new ResponseModel<List<ColaboradorModel>>(colaboradores);
         }
 
@@ -50,8 +50,12 @@ namespace Feedbacks.Services.Colaborador
                 return new ResponseModel<ColaboradorModel>("Colaborador não pode ser nulo");
             }
 
-            var colaborador = new ColaboradorModel(); // Mapeie os dados do DTO para o Model aqui
-            // Exemplo: colaborador.Nome = colaboradorCriacaoDto.Nome;
+            var colaborador = new ColaboradorModel();
+            colaborador.Nome = colaboradorCriacaoDto.Nome;
+            colaborador.Funcao = colaboradorCriacaoDto.Funcao;
+            colaborador.Prioridade = colaboradorCriacaoDto.Prioridade;
+            colaborador.Data_Inicio = colaboradorCriacaoDto.Data_Inicio;
+            colaborador.Data_Final = colaboradorCriacaoDto.Data_Final;
 
             var colaboradorCriado = await _colaboradorRepository.Criar(colaborador);
             return new ResponseModel<ColaboradorModel>(colaboradorCriado);
@@ -64,9 +68,12 @@ namespace Feedbacks.Services.Colaborador
                 return new ResponseModel<ColaboradorModel>("Colaborador não pode ser nulo");
             }
 
-            // Implemente a lógica de edição aqui
-            var colaborador = new ColaboradorModel(); // Mapeie os dados do DTO para o Model aqui
-            // Exemplo: colaborador.Nome = colaboradorEdicaoDto.Nome;
+            var colaborador = new ColaboradorModel();
+            colaborador.Nome = colaboradorEdicaoDto.Nome;
+            colaborador.Funcao = colaboradorEdicaoDto.Funcao;
+            colaborador.Prioridade = colaboradorEdicaoDto.Prioridade;
+            colaborador.Data_Inicio = colaboradorEdicaoDto.Data_Inicio;
+            colaborador.Data_Final = colaboradorEdicaoDto.Data_Final;
 
             var colaboradorEditado = await _colaboradorRepository.Editar(colaborador);
             return new ResponseModel<ColaboradorModel>(colaboradorEditado);

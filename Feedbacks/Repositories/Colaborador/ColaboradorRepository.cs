@@ -1,10 +1,10 @@
-﻿using Feedbacks.Data; // Namespace do contexto do banco de dados
-using Feedbacks.Models; // Namespace dos modelos
+﻿using Feedbacks.Data;
+using Feedbacks.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Feedbacks.Repositories.Colaborador // Namespace do repositório de colaboradores
+namespace Feedbacks.Repositories.Colaborador
 {
     public class ColaboradorRepository : IColaboradorRepository
     {
@@ -45,7 +45,7 @@ namespace Feedbacks.Repositories.Colaborador // Namespace do repositório de col
             if (existingColaborador == null)
                 return null;
 
-            existingColaborador.Nome = colaborador.Nome; // Atualize os campos conforme necessário
+            existingColaborador.Nome = colaborador.Nome;
             existingColaborador.Funcao = colaborador.Funcao;
             existingColaborador.Prioridade = colaborador.Prioridade;
             existingColaborador.Data_Inicio = colaborador.Data_Inicio;

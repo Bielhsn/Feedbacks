@@ -9,6 +9,6 @@ namespace Feedbacks.Models
         public string Descricao { get; set; }
         public DateTime Data_Inicio { get; set; }
         public DateTime Data_Final { get; set; }
-        public ColaboradorModel Colaborador { get; set; } // Certifique-se de que ColaboradorModel esteja acessível
+        public ColaboradorModel Colaborador { get; set; }
     }
 }

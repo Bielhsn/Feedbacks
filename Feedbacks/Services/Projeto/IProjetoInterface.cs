@@ -11,6 +11,6 @@ namespace Feedbacks.Services.Projeto
         Task<List<ProjetoModel>> ListarProjetos();
         Task<ProjetoModel> Editar(ProjetoModel projeto);
         Task<bool> Excluir(int id);
-        Task<ProjetoModel> BuscarProjetoPorId(int id); // Adicionado
+        Task<ProjetoModel> BuscarProjetoPorId(int id);
     }
 }
