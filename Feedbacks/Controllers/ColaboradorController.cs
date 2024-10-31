@@ -45,6 +45,5 @@ namespace Feedbacks.Controllers
             return CreatedAtAction(nameof(GetColaboradorPorId), new { id = novoColaborador.Id }, novoColaborador);
         }
 
-        // Adicione outros métodos conforme necessário...
     }
 }

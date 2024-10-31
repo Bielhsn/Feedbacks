@@ -50,10 +50,10 @@ namespace Feedbacks.Repositories.Projeto
             return true;
         }
 
-        public async Task<List<ProjetoModel>> BuscarPorIdColaborador(int colaboradorId) // Implementação do método
+        public async Task<List<ProjetoModel>> BuscarPorIdColaborador(int colaboradorId)
         {
             return await _context.TB_Projetos
-                .Where(p => p.Colaborador.Id == colaboradorId) // Assumindo que você tenha uma propriedade de Colaborador em ProjetoModel
+                .Where(p => p.Colaborador.Id == colaboradorId)
                 .ToListAsync();
         }
     }

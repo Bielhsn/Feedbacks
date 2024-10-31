@@ -5,7 +5,7 @@ using Feedbacks.Services.Colaborador;
 using Feedbacks.Services.Projeto;
 using Microsoft.EntityFrameworkCore;
 
-namespace Feedbacks // Adicione um namespace
+namespace Feedbacks
 {
     public class Program
     {
@@ -41,7 +41,7 @@ namespace Feedbacks // Adicione um namespace
             // Configuração do middleware
             if (app.Environment.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage(); // Para desenvolvimento, exibe erros detalhados
+                app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
